@@ -8,20 +8,22 @@
 	<title>kMITRA Data Search</title>
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 <body>
-	<h1 style="width: 100%; text-align: center;">Search kMITRA's DataBase</h1>
+	<div style="text-align: center;">
+		<img src="https://kmit.in/emagazine/wp-content/uploads/2020/09/kmitralogo-1.png" alt="kMITRA">
+	</div>
+	<h1 style="width: 100%; text-align: center; margin-top: 2.5rem; margin-bottom: 2rem;">Search kMITRA's DataBase</h1>
 
 	<div class="main">
 		<div class="sec1">
 			<div>
-				<input id="search" type="text" onkeyup="changeRes()" onkeypress="if(event.key==='Enter') mySearch()" />
+				<input id="search" type="text" onkeyup="changeRes()" onkeypress="if(event.key==='Enter') mySearch()" placeholder="Enter a name to Search..." />
 				<div id="res1"><ul id="res"></ul></div>
 			</div>
 			<button class="btn" onclick="mySearch();">
 				&nbsp;&nbsp;&nbsp;<i class='fa fa-search'></i>&nbsp;&nbsp;&nbsp;</button>
-			<p>Search the kMitra's Data</p>
 		</div>
 		<div>
-			<span id="result"></span>
+			<div style="font-size: x-large; margin-top: 2rem;" id="result"></div>
 		</div>
 	</div>
 
@@ -31,10 +33,13 @@
 			text-align: center;
 			height: 100%;
 			vertical-align: middle;
+			margin-top: 1rem;
 		}
 
 		body {
-			background-color: grey;
+			background-color: #1d1d1d;
+			color: white;
+			font-family: Helvetica Neue, Helvetica, Arial, sans-serif; 
 		}
 
 		.btn {
@@ -61,7 +66,7 @@
 			outline: none;
 			border-radius: 25px;
 			font-size: large;
-			width: 20rem;
+			width: 25rem;
 		}
 
 		.res1 {
@@ -71,6 +76,7 @@
 		#res {
 			padding-inline-start: initial;
 			background: white;
+			color: black;
 			margin-top: -25px;
 			padding-top: 25px;
 			border-radius: 0px 0px 25px 25px;
@@ -87,6 +93,20 @@
 
 		.rec:last-child {
 			border-radius: 0px 0px 25px 25px;
+		}
+
+		.btn {
+			background-color: rgb(220, 220, 220);
+			font-size: large;
+		}
+
+		.btn:hover {
+			background-color: rgb(180, 180, 180);
+		}
+
+		input[type=text]::-webkit-search-cancel-button {
+			-webkit-appearance: searchfield-cancel-button;
+			appearance: searchfield-cancel-button;
 		}
 
 	</style>
@@ -138,24 +158,34 @@
 
 		function mySearch() {
 
-			let a = [data.KMIT_DATABASE.Developers.find(v => v.Name === search.value),
-			data.KMIT_DATABASE.Writers.find(v => v.Name === search.value),
-			data.KMIT_DATABASE.Designers.find(v => v.Name === search.value)
+			res.innerHTML = ``
+			search.blur()
+
+			if (!search.value.trim()) return;
+
+			let a = [data.KMIT_DATABASE.Developers.find(v => v.Name.toLowerCase() === search.value.toLowerCase().trim()),
+				data.KMIT_DATABASE.Writers.find(v => v.Name.toLowerCase() === search.value.toLowerCase().trim()),
+				data.KMIT_DATABASE.Designers.find(v => v.Name.toLowerCase() === search.value.toLowerCase().trim())
 			]
+
+			if (a.every(e=>e==undefined)) {
+				result.innerHTML = `No Results found for ${search.value}`
+				return
+			}
 
 			a = a.filter(function (element) {
 				return element !== undefined;
 			})
-			result.innerHTML = `${search.value} is a ` + JSON.stringify(a.map(e => e.Role).join(", ")).replace('"', '').replace('"', '')
+			result.innerHTML = `${search.value.trim()} is a ${JSON.stringify(a.map(e => e.Role).join(", ")).replace('"', '').replace('"', '')}`
 
 		}
 
 		function changeRes() {
-			if (!search.value) {
+			if (!search.value.trim()) {
 				res.innerHTML = ""
 				return
 			}
-			var results = names.filter(e => e.toLowerCase().startsWith(search.value.toLowerCase())).concat(names.filter(e => e.toLowerCase().includes(search.value.toLowerCase()) && !e.toLowerCase().startsWith(search.value.toLowerCase())))
+			var results = names.filter(e => e.toLowerCase().startsWith(search.value.toLowerCase().trim())).concat(names.filter(e => e.toLowerCase().includes(search.value.toLowerCase().trim()) && !e.toLowerCase().startsWith(search.value.toLowerCase().trim())))
 			console.log(results)
 			res.innerHTML = ``
 			results.forEach(e => {
