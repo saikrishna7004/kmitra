@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>kMITRA Data Search</title>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<body>
+	<h1 style="width: 100%; text-align: center;">Search kMITRA's DataBase</h1>
+
+	<div class="main">
+		<div class="sec1">
+			<div>
+				<input id="search" type="text" onkeyup="changeRes()" onkeypress="if(event.key==='Enter') mySearch()" />
+				<div id="res1"><ul id="res"></ul></div>
+			</div>
+			<button class="btn" onclick="mySearch();">
+				&nbsp;&nbsp;&nbsp;<i class='fa fa-search'></i>&nbsp;&nbsp;&nbsp;</button>
+			<p>Search the kMitra's Data</p>
+		</div>
+		<div>
+			<span id="result"></span>
+		</div>
+	</div>
+
+	<style>
+		.main {
+			width: 100%;
+			text-align: center;
+			height: 100%;
+			vertical-align: middle;
+		}
+
+		body {
+			background-color: grey;
+		}
+
+		.btn {
+			position: absolute;
+			top: 2px;
+			right: 1px;
+			height: 40px;
+			border: 0;
+			border-radius: 25px;
+			cursor: pointer;
+		}
+
+		.sec1 {
+			position: relative;
+			width: max-content;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: initial;
+		}
+
+		#search {
+			border: 1px solid grey;
+			padding: 11px 10px 10px 24px;
+			outline: none;
+			border-radius: 25px;
+			font-size: large;
+			width: 20rem;
+		}
+
+		.res1 {
+			background: white !important;
+		}
+
+		#res {
+			padding-inline-start: initial;
+			background: white;
+			margin-top: -25px;
+			padding-top: 25px;
+			border-radius: 0px 0px 25px 25px;
+		}
+
+		.rec {
+			list-style: none;
+			padding: 15px 25px;
+		}
+
+		.rec:hover {
+			background-color: rgb(240, 240, 240);
+		}
+
+		.rec:last-child {
+			border-radius: 0px 0px 25px 25px;
+		}
+
+	</style>
+
+	<script type="text/javascript">
+
+		const data = {
+			"KMIT_DATABASE": {
+				"Developers": [
+					{
+						"Name": "Anish",
+						"Role": "Junior Developer",
+						"Year": 2
+					},
+					{
+						"Name": "Taahir",
+						"Role": "Senior Developer",
+						"Year": 3
+					}
+				],
+				"Writers": [
+					{
+						"Name": "Shuja",
+						"Role": "Trainee Writer",
+						"Year": 2
+					},
+					{
+						"Name": "Taahir",
+						"Role": "Writer",
+						"Year": 3
+					}
+				],
+				"Designers": [
+					{
+						"Name": "Raju",
+						"Role": "Designer",
+						"Year": 2
+					},
+					{
+						"Name": "Selmon Bhai",
+						"Role": "Designer",
+						"Year": 3
+					}
+				]
+			}
+		}
+
+		const names = [...new Set(data.KMIT_DATABASE.Developers.map(({ Name }) => Name).concat(data.KMIT_DATABASE.Writers.map(({ Name }) => Name)).concat(data.KMIT_DATABASE.Designers.map(({ Name }) => Name)))]
+
+		function mySearch() {
+
+			let a = [data.KMIT_DATABASE.Developers.find(v => v.Name === search.value),
+			data.KMIT_DATABASE.Writers.find(v => v.Name === search.value),
+			data.KMIT_DATABASE.Designers.find(v => v.Name === search.value)
+			]
+
+			a = a.filter(function (element) {
+				return element !== undefined;
+			})
+			result.innerHTML = `${search.value} is a ` + JSON.stringify(a.map(e => e.Role).join(", ")).replace('"', '').replace('"', '')
+
+		}
+
+		function changeRes() {
+			if (!search.value) {
+				res.innerHTML = ""
+				return
+			}
+			var results = names.filter(e => e.toLowerCase().startsWith(search.value.toLowerCase())).concat(names.filter(e => e.toLowerCase().includes(search.value.toLowerCase()) && !e.toLowerCase().startsWith(search.value.toLowerCase())))
+			console.log(results)
+			res.innerHTML = ``
+			results.forEach(e => {
+				res.innerHTML += `<li class="rec" onclick="search.value='${e}'; changeRes()">${e}</li>`
+			})
+		}
+
+	</script>
+
+</body>
+
+</html>
