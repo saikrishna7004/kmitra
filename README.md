@@ -1,2 +1,2 @@
-# kmitra
+# kMITRA
 kMITRA Developers Selection Project
