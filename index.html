@@ -16,7 +16,7 @@
 	<div class="main">
 		<div class="sec1">
 			<div>
-				<input id="search" type="text" onkeyup="changeRes()" onkeypress="if(event.key==='Enter') mySearch()" placeholder="Enter a name to Search..." />
+				<input id="search" type="search" onkeyup="press(event); " onkeypress="if(event.key==='Enter') mySearch()" oninput="changeRes()" placeholder="Enter a name to Search..." />
 				<div id="res1"><ul id="res"></ul></div>
 			</div>
 			<button class="btn" onclick="mySearch();">
@@ -37,7 +37,7 @@
 		}
 
 		body {
-			background-color: #1d1d1d;
+			background-color: #1f1f1f;
 			color: white;
 			font-family: Helvetica Neue, Helvetica, Arial, sans-serif; 
 		}
@@ -67,10 +67,11 @@
 			border-radius: 25px;
 			font-size: large;
 			width: 25rem;
+			margin-right: 60px;
 		}
 
-		.res1 {
-			background: white !important;
+		#res1 {
+			margin-right: 60px;
 		}
 
 		#res {
@@ -87,7 +88,7 @@
 			padding: 15px 25px;
 		}
 
-		.rec:hover {
+		.rec:hover, .rec.active {
 			background-color: rgb(240, 240, 240);
 		}
 
@@ -104,7 +105,7 @@
 			background-color: rgb(180, 180, 180);
 		}
 
-		input[type=text]::-webkit-search-cancel-button {
+		input[type=search]::-webkit-search-cancel-button {
 			-webkit-appearance: searchfield-cancel-button;
 			appearance: searchfield-cancel-button;
 		}
@@ -112,6 +113,7 @@
 	</style>
 
 	<script type="text/javascript">
+		var f = 0
 
 		const data = {
 			"KMIT_DATABASE": {
@@ -158,6 +160,14 @@
 
 		function mySearch() {
 
+			let temp = res.getElementsByClassName("active")
+			// console.log(temp, "temp")
+			if(!(temp.length===0)) {
+				search.value = temp[0].innerHTML
+				res.innerHTML = ""
+				return
+			}
+
 			res.innerHTML = ``
 			search.blur()
 
@@ -189,8 +199,51 @@
 			console.log(results)
 			res.innerHTML = ``
 			results.forEach(e => {
-				res.innerHTML += `<li class="rec" onclick="search.value='${e}'; changeRes()">${e}</li>`
+				res.innerHTML += `<li class="rec" onclick="search.value='${e}'; res.innerHTML = ''; mySearch()">${e}</li>`
 			})
+		}
+
+		function press(event) {
+			console.log(f)
+			
+			let liList = res.getElementsByClassName("rec")
+			if(f>=liList.length) f-=liList.length
+			if(f<0) f+=liList.length
+			if(event.keyCode==40) {
+				event.preventDefault()
+				let liList = res.getElementsByClassName("rec")
+				console.log(liList)
+				for (let e of liList){
+					e.classList.remove('active')
+				}
+				if(liList.length>0){
+					console.log(liList[f].classList)
+					if (!liList[f].classList.contains("active")){
+						console.log(liList[f].classList, "not active")
+						liList[f].classList.add("active")
+						f+=1
+					}
+				}
+			}
+			else if(event.keyCode==38) {
+				event.preventDefault()
+				let liList = res.getElementsByClassName("rec")
+				console.log(liList)
+				for (let e of liList){
+					e.classList.remove('active')
+				}
+				if(liList.length>0){
+					console.log(liList[f].classList)
+					if (!liList[f].classList.contains("active")){
+						console.log(liList[f].classList, "not active")
+						liList[f].classList.add("active")
+						f-=1
+					}
+				}
+			}
+			else {
+				changeRes()
+			}
 		}
 
 	</script>
