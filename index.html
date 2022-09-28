@@ -8,6 +8,8 @@
 	<title>kMITRA Data Search</title>
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 	<link rel="shortcut icon" href="https://raw.githubusercontent.com/saikrishna7004/examsite/main/static/home/favicon.ico" type="image/x-icon">
+</head>
+
 <body>
 	<div style="text-align: center;">
 		<img src="https://kmit.in/emagazine/wp-content/uploads/2020/09/kmitralogo-1.png" alt="kMITRA">
@@ -191,7 +193,7 @@
 			a = a.filter(function (element) {
 				return element !== undefined;
 			})
-			result.innerHTML = `${search.value.trim()} is a ${JSON.stringify(a.map(e => e.Role).join(", ")).replace('"', '').replace('"', '')}`
+			result.innerHTML = `${search.value.trim()} is a ${JSON.stringify(a.map(e => e.Role).join(", ")).replace('"', '').replace('"', '')} of Year ${a[0].Year}`
 
 		}
 
