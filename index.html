@@ -23,9 +23,7 @@
 				<div style="font-size: x-large; position: absolute; padding: 1rem;" id="result">&nbsp;</div>
 				<div id="resDiv"><ul id="res"></ul></div>
 			</div>
-			<button class="btn" onclick="mySearch();">
-				<i class='fa fa-search'></i></button>
-				
+			<button class="btn" onclick="mySearch();"><i class='fa fa-search'></i></button>
 		</div>
 		<div>
 		</div>
@@ -140,7 +138,7 @@
 	</style>
 
 	<script type="text/javascript">
-		var f = 0
+		var f = -1
 
 		const data = {
 			"KMIT_DATABASE": {
@@ -188,7 +186,7 @@
 		function mySearch() {
 
 			let temp = res.getElementsByClassName("active")
-			// console.log(temp, "temp")
+			console.log(temp, "temp")
 			if(!(temp.length===0)) {
 				search.value = temp[0].innerHTML
 				res.innerHTML = ""
@@ -228,15 +226,15 @@
 			results.forEach(e => {
 				res.innerHTML += `<li class="rec" onclick="search.value='${e}'; res.innerHTML = ''; mySearch()">${e}</li>`
 			})
-			f = 0
+			f = -1
 		}
 
 		function press(event) {
-			console.log(f)
+			console.log("init", f)
 			
 			let liList = res.getElementsByClassName("rec")
-			if(f>=liList.length) f-=liList.length
-			if(f<0) f+=liList.length
+			// if(f>=liList.length) f-=liList.length
+			// if(f<0) f+=liList.length
 			if(event.keyCode==40) {
 				event.preventDefault()
 				let liList = res.getElementsByClassName("rec")
@@ -245,11 +243,14 @@
 					e.classList.remove('active')
 				}
 				if(liList.length>0){
-					console.log(liList[f].classList)
+					f+=1
+					if(f>=liList.length) f-=liList.length
+					if(f<0) f+=liList.length
+					console.log("l1", f)
+					console.log("l2", liList[f].classList)
 					if (!liList[f].classList.contains("active")){
-						console.log(liList[f].classList, "not active")
+						console.log("l3", liList[f].classList, "not active")
 						liList[f].classList.add("active")
-						f+=1
 					}
 				}
 			}
@@ -261,11 +262,14 @@
 					e.classList.remove('active')
 				}
 				if(liList.length>0){
-					console.log(liList[f].classList)
+					f-=1
+					if(f>=liList.length) f-=liList.length
+					if(f<0) f+=liList.length
+					console.log("l1", f)
+					console.log("l2", liList[f].classList)
 					if (!liList[f].classList.contains("active")){
-						console.log(liList[f].classList, "not active")
+						console.log("l3", liList[f].classList, "not active")
 						liList[f].classList.add("active")
-						f-=1
 					}
 				}
 			}
