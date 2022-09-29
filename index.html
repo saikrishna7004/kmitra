@@ -27,6 +27,12 @@
 		</div>
 	</div>
 
+	<footer>
+		<p>Author: K. Sai Krishna </p>
+		<br>
+		<a href="example@gmail.com">example@gmail.com</a>
+	</footer>
+
 	<style>
 		.main {
 			width: 100%;
@@ -39,7 +45,8 @@
 		body {
 			background-color: #1f1f1f;
 			color: white;
-			font-family: Helvetica Neue, Helvetica, Arial, sans-serif; 
+			font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+			user-select: none;
 		}
 
 		.fa.fa-search {
@@ -118,6 +125,20 @@
 		input[type=search]::-webkit-search-cancel-button {
 			-webkit-appearance: searchfield-cancel-button;
 			appearance: searchfield-cancel-button;
+		}
+
+		footer {
+			bottom: 10px;
+			position: absolute;
+			background: rgb(210, 210, 210);
+			color: black;
+			text-align: center;
+			width: 98%;
+			padding: 5px;
+		}
+
+		footer p {
+			display: inline;
 		}
 
 		@media (min-width: 500px) {
