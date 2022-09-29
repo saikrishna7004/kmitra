@@ -12,26 +12,22 @@
 
 <body>
 	<div class="img-title" style="text-align: center;">
-		<img src="https://kmit.in/emagazine/wp-content/uploads/2020/09/kmitralogo-1.png" alt="kMITRA">
+		<a href="http://kmit.in/emagazine/">
+			<img src="https://kmit.in/emagazine/wp-content/uploads/2020/09/kmitralogo-1.png" alt="kMITRA">
+		</a>
 	</div>
-	<h1 style="width: 100%; text-align: center; margin-top: 2.5rem; margin-bottom: 2rem;">Search kMITRA's DataBase</h1>
+	<h2 style="width: 100%; text-align: center; margin-top: 2.5rem; margin-bottom: 2rem;">Search kMITRA's DataBase</h2>
 
 	<div class="main">
 		<div class="sec1">
 			<div>
 				<input id="search" type="search" onkeyup="press(event);" oninput="changeRes()" placeholder="Enter a name to Search..." />
-				<div style="font-size: x-large; position: absolute; padding: 1rem;" id="result">&nbsp;</div>
+				<div style="font-size: large; position: absolute; padding: 1rem;" id="result">&nbsp;</div>
 				<div id="resDiv"><ul id="res"></ul></div>
 			</div>
 			<button class="btn" onclick="mySearch();"><i class='fa fa-search'></i></button>
 		</div>
 	</div>
-
-	<footer>
-		<p>Author: K. Sai Krishna </p>
-		<br>
-		<a href="mailto:example@gmail.com">example@gmail.com</a>
-	</footer>
 
 	<style>
 		.main {
@@ -66,7 +62,7 @@
 			padding: 11px 10px 10px 24px;
 			outline: none;
 			border-radius: 25px;
-			font-size: large;
+			/* font-size: large; */
 			width: 250px;
 			margin-right: 60px;
 			position: relative;
@@ -92,7 +88,8 @@
 
 		.rec {
 			list-style: none;
-			padding: 15px 25px;
+			padding: 15px 20px;
+			font-size: small;
 		}
 
 		.rec:hover, .rec.active {
@@ -105,7 +102,7 @@
 
 		.btn {
 			position: absolute;
-			top: 2px;
+			top: -1px;
 			right: 1px;
 			height: 40px;
 			border: 0;
@@ -125,20 +122,6 @@
 		input[type=search]::-webkit-search-cancel-button {
 			-webkit-appearance: searchfield-cancel-button;
 			appearance: searchfield-cancel-button;
-		}
-
-		footer {
-			bottom: 10px;
-			position: absolute;
-			background: rgb(210, 210, 210);
-			color: black;
-			text-align: center;
-			width: 98%;
-			padding: 5px;
-		}
-
-		footer p {
-			display: inline;
 		}
 
 		@media (min-width: 500px) {
