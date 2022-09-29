@@ -11,7 +11,7 @@
 </head>
 
 <body>
-	<div style="text-align: center;">
+	<div class="img-title" style="text-align: center;">
 		<img src="https://kmit.in/emagazine/wp-content/uploads/2020/09/kmitralogo-1.png" alt="kMITRA">
 	</div>
 	<h1 style="width: 100%; text-align: center; margin-top: 2.5rem; margin-bottom: 2rem;">Search kMITRA's DataBase</h1>
@@ -24,8 +24,6 @@
 				<div id="resDiv"><ul id="res"></ul></div>
 			</div>
 			<button class="btn" onclick="mySearch();"><i class='fa fa-search'></i></button>
-		</div>
-		<div>
 		</div>
 	</div>
 
@@ -42,16 +40,6 @@
 			background-color: #1f1f1f;
 			color: white;
 			font-family: Helvetica Neue, Helvetica, Arial, sans-serif; 
-		}
-
-		.btn {
-			position: absolute;
-			top: 2px;
-			right: 1px;
-			height: 40px;
-			border: 0;
-			border-radius: 25px;
-			cursor: pointer;
 		}
 
 		.fa.fa-search {
@@ -109,9 +97,18 @@
 		}
 
 		.btn {
+			position: absolute;
+			top: 2px;
+			right: 1px;
+			height: 40px;
+			border: 0;
+			border-radius: 25px;
+			cursor: pointer;
+			border: 1px solid grey;
 			background-color: rgb(10, 10, 10);
 			color: white;
 			font-size: large;
+			left: 250px;
 		}
 
 		.btn:hover {
@@ -132,6 +129,47 @@
 
 			#search {
 				width: 25rem;
+			}
+
+			.btn {
+				left: 25rem;
+			}
+		}
+
+		@media (prefers-color-scheme: light) {
+			body {
+				background: #FFF !important;
+				color: #333;
+				margin: 0;
+			}
+			.img-title {
+				background-color: #1f1f1f;
+				padding: 10px;
+			}
+			.btn {
+				background-color: rgb(240, 240, 240);
+				color: black;
+				font-size: large;
+			}
+			.btn:hover {
+				background-color: rgb(155, 155, 155);
+			}
+			#res {
+				background: rgba(240, 240, 240, 0.85);
+				color: black;
+			}
+			.rec:hover, .rec.active {
+				background-color: rgba(205, 205, 205, 0.95);
+			}
+			#search {
+				background-color: rgb(240, 240, 240);
+				color: black;
+			}
+		}
+		@media (prefers-color-scheme: dark) {
+			body {
+				background: #1f1f1f !important;
+				color: #FFF;
 			}
 		}
 
