@@ -20,7 +20,7 @@
 
 	<div class="main">
 		<div class="sec1">
-			<div>
+			<div id="focusDiv">
 				<input id="search" type="search" onkeyup="press(event);" oninput="changeRes()" placeholder="Enter a name to Search..." />
 				<div style="font-size: large; position: absolute; padding: 1rem;" id="result">&nbsp;</div>
 				<div id="resDiv"><ul id="res"></ul></div>
@@ -43,6 +43,7 @@
 			color: white;
 			font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 			user-select: none;
+			min-height: 99vh;
 		}
 
 		.fa.fa-search {
@@ -159,7 +160,7 @@
 				padding: 10px;
 			}
 			.btn {
-				background-color: rgb(240, 240, 240);
+				background-color: rgb(250, 250, 250);
 				color: black;
 				font-size: large;
 			}
@@ -167,14 +168,14 @@
 				background-color: rgb(205, 205, 205);
 			}
 			#res {
-				background: rgba(240, 240, 240, 0.85);
+				background: rgba(245, 245, 245, 0.9);
 				color: black;
 			}
 			.rec:hover, .rec.active {
 				background-color: rgba(205, 205, 205, 0.95);
 			}
 			#search {
-				background-color: rgb(240, 240, 240);
+				background-color: rgb(250, 250, 250);
 				color: black;
 			}
 		}
@@ -331,6 +332,18 @@
 				changeRes()
 			}
 		}
+
+		document.getElementById("focusDiv").addEventListener("blur", (e)=>{
+				res.innerHTML = ``
+			console.log("object")
+		})
+
+		document.body.addEventListener('click', (e)=>{
+			if(e.target.id!='search' || e.target.classList[0]=='fa' || e.target.classList[0]=='btn') {
+				console.log(e.target); 
+				res.innerHTML=``;
+			}
+		})
 
 	</script>
 
