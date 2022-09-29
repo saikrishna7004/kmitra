@@ -247,14 +247,15 @@
 			]
 
 			if (a.every(e=>e==undefined)) {
-				result.innerHTML = `<span style="margin-top: 2rem; position: relative; line-height: 1.5;">No Results found for ${search.value}</span>`
+				var shortNames = names.filter(e => (e.toLowerCase().startsWith(search.value.toLowerCase().trim()) || search.value.toLowerCase().trim().includes(e.toLowerCase())))
+				result.innerHTML = `<span style="margin-top: 2rem; position: relative; line-height: 1.5;">No Results found for ${search.value}${shortNames.length!=0 && search.value.trim().length>=2?'. Do you mean ' + shortNames[0] + '?':''}</span>`
 				return
 			}
 
 			a = a.filter(function (element) {
 				return element !== undefined;
 			})
-			result.innerHTML = `<span style="margin-top: 2rem; position: relative; line-height: 1.5;">${search.value.trim()} is a ${JSON.stringify(a.map(e => e.Role).join(", ")).replace('"', '').replace('"', '')} of Year ${a[0].Year}</span>`
+			result.innerHTML = `<span style="margin-top: 2rem; position: relative; line-height: 1.5;">${a[0].Name} is a ${JSON.stringify(a.map(e => e.Role).join(", ")).replace('"', '').replace('"', '')} of Year ${a[0].Year}</span>`
 
 		}
 
