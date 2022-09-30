@@ -410,6 +410,7 @@
 
 		function sliderChange(e) {
 			document.documentElement.style.setProperty('--borderRadius', e.target.value + 'px')
+			localStorage.setItem("brData", e.target.value)
 		}
 
 		document.getElementById("focusDiv").addEventListener("blur", (e)=>{
@@ -423,6 +424,14 @@
 				res.innerHTML=``;
 			}
 		})
+
+		window.onload = ()=>{
+			var brData = localStorage.getItem("brData")
+			if (brData) {
+				document.documentElement.style.setProperty('--borderRadius', brData + 'px')
+				slider.value = brData
+			}
+		}
 
 	</script>
 
