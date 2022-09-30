@@ -256,7 +256,7 @@
 
 			if (a.every(e=>e==undefined)) {
 				var shortNames = names.filter(e => (e.toLowerCase().startsWith(search.value.toLowerCase().trim()) || search.value.toLowerCase().trim().includes(e.toLowerCase())))
-				result.innerHTML = `<span class="resSpan">No Results found for ${search.value}${shortNames.length!=0 && search.value.trim().length>=2?'. Do you mean ' + shortNames[0] + '?':''}</span>`
+				result.innerHTML = `<span class="resSpan">No Results found for ${search.value}${shortNames.length!=0 && search.value.trim().length>=2?'.</span> <br><br> <span class="resSpan" style="font-size: small;"> Do you mean ' + shortNames[0] + '?':''}</span>`
 				return
 			}
 
