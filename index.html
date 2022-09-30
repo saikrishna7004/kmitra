@@ -25,9 +25,14 @@
 				<input id="search" type="search" onkeyup="press(event);" oninput="changeRes()" placeholder="Enter a name to Search..." />
 				<div id="resDiv"><ul id="res"></ul></div>
 			</div>
-			<div style="font-size: large; padding: 1rem;" id="result">&nbsp;</div>
 			<button class="btn" aria-label="Search" onclick="mySearch();"><i class='fa fa-search'></i></button>
+			<div style="font-size: large; padding: 1rem;" id="result">&nbsp;</div>
 		</div>
+		<div id="brDiv" style="display: none;">
+			<label for="slider">Border Radius</label>
+			<input type="range" min="0" max="25" value="0" class="slider" id="slider" step="1" onchange="sliderChange(event)">	
+		</div>
+		<button class="brBtn" title="Preferences" aria-label="Preferences" onclick="brDiv.style.display!='none' ? brDiv.style.display='none' : brDiv.style.display='unset'"><i class='fa fa-gear'></i></>
 	</div>
 
 	<style>
@@ -39,12 +44,16 @@
 			margin-top: 1rem;
 		}
 
+		:root {
+			--borderRadius: 0px;
+		}
+
 		body {
 			background-color: #1f1f1f;
 			color: white;
 			font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 			user-select: none;
-			min-height: 97vh;
+			min-height: 600px;
 		}
 
 		.fa.fa-search {
@@ -63,7 +72,7 @@
 			border: 0;
 			padding: 11px 10px 10px 20px;
 			outline: none;
-			border-radius: 25px;
+			border-radius: var(--borderRadius);
 			/* font-size: large; */
 			border: 0.2px solid rgb(100, 100, 100);
 			width: 250px;
@@ -87,7 +96,7 @@
 			color: white;
 			margin-top: -25px;
 			padding-top: 25px;
-			border-radius: 0px 0px 25px 25px;
+			border-radius: 0px 0px var(--borderRadius) var(--borderRadius);
 		}
 
 		.rec {
@@ -101,16 +110,16 @@
 		}
 
 		.rec:last-child {
-			border-radius: 0px 0px 25px 25px;
+			border-radius: 0px 0px var(--borderRadius) var(--borderRadius);
 		}
 
 		.btn {
 			position: absolute;
-			top: -1px;
+			top: 0px;
 			right: 1px;
-			height: 40px;
+			height: 38px;
 			border: 0.2px solid rgb(100, 100, 100);
-			border-radius: 25px;
+			border-radius: var(--borderRadius);
 			cursor: pointer;
 			background-color: rgb(10, 10, 10);
 			color: white;
@@ -127,6 +136,29 @@
 			position: relative; 
 			line-height: 1.5;
 			user-select: text;
+		}				
+
+		.slider {
+			-webkit-appearance: none;
+			width: 100%;
+			height: 2px;
+			background: #d3d3d3;
+			opacity: 0.7;
+			transition: opacity .2s;
+		}
+
+		.slider:hover {
+			opacity: 1;
+		}
+
+		.slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 15px;
+			height: 15px;
+			background: #178A75;
+			cursor: pointer;
+			border-radius: 20px;
 		}
 
 		input[type=search]::-webkit-search-cancel-button {
@@ -136,6 +168,27 @@
 			width: 20px;
 			background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
 			cursor: pointer;
+		}
+
+		.brBtn {
+			color: white;
+			font-size: 25px;
+			background-color: transparent;
+			border: 0;
+			cursor: pointer;
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+		}
+
+		#brDiv {
+			bottom: 40px; 
+			right: 40px; 
+			position: absolute; 
+			display: none;    
+			background: #1f1f1f;
+			border: 0.5px solid;
+			padding: 10px;
 		}
 
 		input[type=search]::-webkit-search-cancel-button:hover {
@@ -186,6 +239,17 @@
 			#search {
 				background-color: rgb(250, 250, 250);
 				color: black;
+			}
+			.brBtn {
+				color: black;
+				z-index: 10;
+			}
+			#brDiv {
+				background: rgba(245, 245, 245, 0.9);
+				border: 0.5px solid;
+				columns: black;
+				padding: 10px;
+				z-index: 10;
 			}
 		}
 		@media (prefers-color-scheme: dark) {
@@ -343,6 +407,10 @@
 			}
 		}
 
+		function sliderChange(e) {
+			document.documentElement.style.setProperty('--borderRadius', e.target.value + 'px')
+		}
+
 		document.getElementById("focusDiv").addEventListener("blur", (e)=>{
 				res.innerHTML = ``
 			console.log("object")
@@ -350,7 +418,7 @@
 
 		document.body.addEventListener('click', (e)=>{
 			if(e.target.id!='search' || e.target.classList[0]=='fa' || e.target.classList[0]=='btn') {
-				console.log(e.target); 
+				// console.log(e.target); 
 				res.innerHTML=``;
 			}
 		})
